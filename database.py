@@ -8,7 +8,6 @@ from sqlalchemy.ext.asyncio import (
 )
 
 
-
 class Base(DeclarativeBase):
     pass
 
