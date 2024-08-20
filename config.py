@@ -12,7 +12,8 @@ class Setting(BaseSettings):
     DB_HOST: str
     DB_PORT: int
     DB_NAME: str
-    DEBUG: str = os.getenv("DEBUG", "False")
+    DEBUG: bool = os.getenv("DEBUG", "False").lower() in ("true", "1")
+    # DEBUG: bool = True
 
     @property
     def db_connect(self):

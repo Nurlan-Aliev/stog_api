@@ -1,6 +1,12 @@
 from asyncio import current_task
 from config import setting
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Mapped,
+    mapped_column,
+    declared_attr,
+    relationship,
+)
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker,
@@ -9,7 +15,13 @@ from sqlalchemy.ext.asyncio import (
 
 
 class Base(DeclarativeBase):
-    pass
+    __abstract__ = True
+
+    @declared_attr.directive
+    def __tablename__(cls) -> str:
+        return f"{cls.__name__.lower()}s"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
 
 
 class DataBaseHelper:
